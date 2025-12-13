@@ -1,4 +1,4 @@
-import type { NextFunction, Request, Response } from "express";
+import { request, type NextFunction, type Request, type Response } from "express";
 import { BaseRoute } from "./base-route";
 import { authController } from "../../frameworks/di/container";
 
@@ -13,7 +13,15 @@ export class AuthRoutes extends BaseRoute {
         });
 
         this.router.post("/verify-otp", (req: Request, res: Response, next: NextFunction) => {
-            authController.verfiyOtp(req, res, next);
+            authController.verifyOtp(req, res, next);
+        });
+
+        this.router.get("/resend-otp/:email", (req: Request, res: Response, next: NextFunction) => {
+            authController.resendOtp(req, res, next);
+        })
+
+        this.router.post("/login", (req: Request, res: Response, next: NextFunction) => {
+            authController.login(req, res, next);
         })
     }
 }

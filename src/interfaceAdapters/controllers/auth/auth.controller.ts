@@ -9,6 +9,10 @@ import type { IVerifyOtpUsecase } from "../../../entities/usecaseInterfaces/auth
 import { VerifyOtpUsecase } from "../../../usecases/auth/verify-otp.usecase";
 import type { IGenerateTokenUsecase } from "../../../entities/usecaseInterfaces/auth/generate_token.usecase.interface";
 import { setAuthCookies } from "../../../shared/utils/cookie.helpers";
+import type { IResendOtpUsecase } from "../../../entities/usecaseInterfaces/auth/resend_otp.usecase.interface";
+import type { ILoginUsecase } from "../../../entities/usecaseInterfaces/auth/login.usecase.interface";
+import { emailSchema } from "../../../shared/validations/email-validation";
+import { passwordSchema } from "../../../shared/validations/password-validation";
 
 export class AuthController implements IAuthController {
     constructor (
@@ -16,11 +20,13 @@ export class AuthController implements IAuthController {
 
         private _userMapper: IUserMapper,
 
-        private _sendOtpUsecase: ISendOtpUsecase,
-
         private _verifyOtpUsecase: IVerifyOtpUsecase,
 
         private _generateTokenUsecase: IGenerateTokenUsecase,
+
+        private _resendOtpUsecase: IResendOtpUsecase,
+
+        private _loginUsecase: ILoginUsecase,
     ) {}
 
     async register(req: Request, res: Response, next: NextFunction): Promise<void> {
@@ -32,15 +38,13 @@ export class AuthController implements IAuthController {
 
             const otp = await this._registerUsecase.execute(data);
 
-            await this._sendOtpUsecase.execute(otp, data.email);
-
             res.status(HttpStatusCode.OK).json({message: "OTP sented to your email please check for it."})
         } catch (error) {
             next(error);
         }
     }
 
-    async verfiyOtp (req: Request, res: Response, next: NextFunction): Promise<void> {
+    async verifyOtp (req: Request, res: Response, next: NextFunction): Promise<void> {
         try {
             const { email, otp } = req.query;
             console.log(email, otp)
@@ -50,7 +54,36 @@ export class AuthController implements IAuthController {
 
             setAuthCookies(res, accessToken, refreshToken);
 
-            res.status(HttpStatusCode.OK).json(user);
+            res.status(HttpStatusCode.CREATED).json({user});
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    async resendOtp(req: Request, res: Response, next: NextFunction): Promise<void> {
+        try {
+            const { email } = req.params;
+
+            await this._resendOtpUsecase.execute(email as string);
+
+            res.status(HttpStatusCode.OK).json({message: "OTP send to your email"});
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    async login(req: Request, res: Response, next: NextFunction): Promise<void> {
+        try {
+            const email = emailSchema.parse(req.body.email);
+            const password = passwordSchema.parse(req.body.password);
+
+            const user = await this._loginUsecase.execute(email, password);
+
+            const { accessToken, refreshToken } = await this._generateTokenUsecase.execute(user._id, user.email);
+
+            setAuthCookies(res, accessToken, refreshToken);
+
+            res.status(HttpStatusCode.OK).json({user});
         } catch (error) {
             next(error);
         }
