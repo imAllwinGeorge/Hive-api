@@ -1,0 +1,51 @@
+import type { Model } from "mongoose";
+import type {
+  FilterQuery,
+  IBaseRepository,
+} from "../../entities/repositoryInterfaces/base-repository.interface";
+
+export class BaseRepository<T> implements IBaseRepository<T> {
+  constructor(protected model: Model<T>) {}
+
+  async find(filter: FilterQuery<T>): Promise<T[]> {
+    return this.model.find(filter);
+  }
+
+  async findAll(
+    limit: number,
+    skip: number,
+    filter: FilterQuery<T>
+  ): Promise<{ items: T[]; total: number }> {
+    const [items, total] = await Promise.all([
+      this.model
+        .find(filter)
+        .sort({ createdAt: -1 })
+        .skip(skip)
+        .limit(limit)
+        .lean(),
+      this.model.countDocuments(filter),
+    ]);
+    return { items, total };
+  }
+
+  async findOne(filter: FilterQuery<T>): Promise<T | null> {
+    return this.model.findOne(filter);
+  }
+
+  async findById(filter: FilterQuery<T>): Promise<T | null> {
+    return this.model.findById(filter);
+  }
+
+  async save(data: Partial<T>): Promise<T> {
+    const doc = new this.model(data);
+    await doc.save();
+    return doc;
+  }
+
+  async findOneAndUpdate(
+    filter: FilterQuery<T>,
+    value: Partial<T>
+  ): Promise<T | null> {
+    return this.model.findByIdAndUpdate(filter, { $set: value }, { new: true });
+  }
+}
