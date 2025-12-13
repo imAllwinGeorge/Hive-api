@@ -3,6 +3,7 @@ import type { IPendingUserRepository } from "../../entities/repositoryInterfaces
 import type { IUserRepository } from "../../entities/repositoryInterfaces/user-repository.interface";
 import type { IBcrypt } from "../../entities/security/bcrypt.interface";
 import type { IOtpService } from "../../entities/services/otp-service.interface";
+import type { ISendOtpService } from "../../entities/services/send-otp.service.interface";
 import type { IRegisterUsecase } from "../../entities/usecaseInterfaces/auth/register-usecase.interface";
 import { HttpStatusCode } from "../../shared/constants/constants";
 import { AppError } from "../../shared/errors/appError";
@@ -16,6 +17,8 @@ export class RegisterUsecase implements IRegisterUsecase {
         private _passwordBcrypt: IBcrypt,
 
         private _pendingUserRepository: IPendingUserRepository,
+
+        private _sendOtpService: ISendOtpService,
     ) {}
     
     async execute(data: IUserEntity): Promise<string> {
@@ -37,6 +40,8 @@ export class RegisterUsecase implements IRegisterUsecase {
         })
 
         if(!pendingUser) throw new AppError("Unable to complete your request at the moment. Please try again!", HttpStatusCode.INTERNAL_SERVER_ERROR);
+
+        await this._sendOtpService.sendOTP(otp, data.email);
 
         return otp;
     }

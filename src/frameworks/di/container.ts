@@ -6,7 +6,9 @@ import { JwtServices } from "../../interfaceAdapters/services/jwt-services";
 import { OtpSerivce } from "../../interfaceAdapters/services/otp-service";
 import { SendOtpService } from "../../interfaceAdapters/services/send-otp.service";
 import { GenerageTokenUsecase } from "../../usecases/auth/generate_token.usecase";
+import { LoginUsecase } from "../../usecases/auth/login-usecase";
 import { RegisterUsecase } from "../../usecases/auth/register-usecase";
+import { ResendOtpUsecase } from "../../usecases/auth/resend_otp.usecase";
 import { SendOtpUsecase } from "../../usecases/auth/send-otp.usecase";
 import { VerifyOtpUsecase } from "../../usecases/auth/verify-otp.usecase";
 import { PasswordBcrypt } from "../security/password-bcyrpt";
@@ -34,7 +36,7 @@ const jwtServices = new JwtServices();
 
 
 //--------------UseCases-----------------
-const registerUsecase = new RegisterUsecase(otpSerivce, userRepository, bcrypt, pendingUserRepository);
+const registerUsecase = new RegisterUsecase(otpSerivce, userRepository, bcrypt, pendingUserRepository, sendOtpService);
 
 const sendOtpUsecase = new SendOtpUsecase(sendOtpService);
 
@@ -42,7 +44,11 @@ const verifyUsecase = new VerifyOtpUsecase(pendingUserRepository, userRepository
 
 const generateTokenUsecase = new GenerageTokenUsecase(jwtServices);
 
+const resendOtpUsecase = new ResendOtpUsecase(pendingUserRepository, otpSerivce, sendOtpService);
+
+const loginUsecase = new LoginUsecase(userRepository, bcrypt, userMapper);
+
 
 
 //-----------Controllers---------------
-export const authController = new AuthController(registerUsecase, userMapper, sendOtpUsecase, verifyUsecase, generateTokenUsecase);
+export const authController = new AuthController(registerUsecase, userMapper, verifyUsecase, generateTokenUsecase, resendOtpUsecase, loginUsecase);
