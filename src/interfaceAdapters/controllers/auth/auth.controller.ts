@@ -8,7 +8,7 @@ import type { ISendOtpUsecase } from "../../../entities/usecaseInterfaces/auth/s
 import type { IVerifyOtpUsecase } from "../../../entities/usecaseInterfaces/auth/verify_otp-usecase.interface";
 import { VerifyOtpUsecase } from "../../../usecases/auth/verify-otp.usecase";
 import type { IGenerateTokenUsecase } from "../../../entities/usecaseInterfaces/auth/generate_token.usecase.interface";
-import { setAuthCookies } from "../../../shared/utils/cookie.helpers";
+import { clearAuthCookies, setAuthCookies } from "../../../shared/utils/cookie.helpers";
 import type { IResendOtpUsecase } from "../../../entities/usecaseInterfaces/auth/resend_otp.usecase.interface";
 import type { ILoginUsecase } from "../../../entities/usecaseInterfaces/auth/login.usecase.interface";
 import { emailSchema } from "../../../shared/validations/email-validation";
@@ -84,6 +84,16 @@ export class AuthController implements IAuthController {
             setAuthCookies(res, accessToken, refreshToken);
 
             res.status(HttpStatusCode.OK).json({user});
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    async logout(req: Request, res: Response, next: NextFunction): Promise<void> {
+        try {
+            clearAuthCookies(res);
+
+            res.status(HttpStatusCode.OK).json({success: true})
         } catch (error) {
             next(error);
         }

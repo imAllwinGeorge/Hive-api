@@ -23,5 +23,9 @@ export class AuthRoutes extends BaseRoute {
         this.router.post("/login", (req: Request, res: Response, next: NextFunction) => {
             authController.login(req, res, next);
         })
+
+        this.router.post("/logout", (req: Request, res: Response, next: NextFunction) => {
+            authController.logout(req, res, next);
+        })
     }
 }
