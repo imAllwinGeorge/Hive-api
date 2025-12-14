@@ -1,0 +1,8 @@
+import type { IBlogModel } from "../../frameworks/database/mongo/models/blog.model";
+import type { BlogResponseDTO } from "../../shared/types/responseDTO";
+
+
+export interface IBlogMapper {
+  toDTO(blog: IBlogModel): BlogResponseDTO;
+  toDTOs(entities: IBlogModel[]): BlogResponseDTO[];
+}
