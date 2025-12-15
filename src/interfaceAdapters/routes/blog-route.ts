@@ -12,5 +12,9 @@ export class BlogRoute extends BaseRoute {
         this.router.post("/create", upload.any(), (req: Request, res: Response, next: NextFunction) => {
             blogController.createBlog(req, res, next);
         })
+
+        this.router.get("/get-blog/:blogId", (req: Request, res: Response, next: NextFunction) => {
+            blogController.getBlog(req, res, next);
+        })
     }
 }

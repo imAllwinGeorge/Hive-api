@@ -3,10 +3,13 @@ import type { IBlogController } from "../../../entities/controllerInterfaces/blo
 import { HttpStatusCode } from "../../../shared/constants/constants";
 import type { BlogSection } from "../../../entities/models/blog.entity";
 import type { ICreateBlogUsecase } from "../../../entities/usecaseInterfaces/blog/create_blog.usecase.interface";
+import type { IGetBlogUsecase } from "../../../entities/usecaseInterfaces/blog/get_blog.usecase.interface";
 
 export class BlogController implements IBlogController {
   constructor(
     private _createBlogUsecase: ICreateBlogUsecase,
+
+    private _getBlogUsecase: IGetBlogUsecase,
   ) {}
 
   async createBlog(
@@ -72,6 +75,18 @@ export class BlogController implements IBlogController {
       const newBlog = await this._createBlogUsecase.execute(blog);
       console.log(newBlog)
       res.status(HttpStatusCode.CREATED).json({ blog: newBlog });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async getBlog(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const {blogId} = req.params
+
+      const blog = await this._getBlogUsecase.execute(blogId as string);
+
+      res.status(HttpStatusCode.OK).json({blog});
     } catch (error) {
       next(error);
     }
