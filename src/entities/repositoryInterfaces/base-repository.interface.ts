@@ -4,7 +4,7 @@ export type FilterQuery<T> = Filter<T>;
 
 export interface IBaseRepository<T> {
   find(filter: FilterQuery<T>): Promise<T[]>;
-  findAll(limit: number, skip: number, filter: FilterQuery<T>): Promise<{ items: T[]; total: number}>;
+  findAll(limit: number, skip: number, filter: FilterQuery<object>): Promise<{ items: T[]; total: number}>;
   findOne(filter: FilterQuery<T>): Promise<T | null>;
   findById(id: string): Promise<T | null>;
   save(data: Partial<T>): Promise<T>;

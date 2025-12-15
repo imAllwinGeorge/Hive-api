@@ -17,6 +17,7 @@ import { VerifyOtpUsecase } from "../../usecases/auth/verify-otp.usecase";
 import { CreateBlogUsecase } from "../../usecases/blog/create_blog.usecase";
 import { EditBlogUsecase } from "../../usecases/blog/edit_blog.usecase";
 import { GetBlogUsecase } from "../../usecases/blog/get_blog.usecase";
+import { GetHomeDataUsecase } from "../../usecases/blog/get_home-data.usecase";
 import { PasswordBcrypt } from "../security/password-bcyrpt";
 
 
@@ -64,9 +65,11 @@ const getBlogUsecase = new GetBlogUsecase(blogRepository, blogMapper);
 
 const editBlogUsecase = new EditBlogUsecase(blogRepository, blogMapper);
 
+const getHomeDataUsecase = new GetHomeDataUsecase(blogRepository, blogMapper);
+
 
 
 //-----------Controllers---------------
 export const authController = new AuthController(registerUsecase, userMapper, verifyUsecase, generateTokenUsecase, resendOtpUsecase, loginUsecase);
 
-export const blogController = new BlogController(createBlogUsecase, getBlogUsecase, editBlogUsecase)
+export const blogController = new BlogController(createBlogUsecase, getBlogUsecase, editBlogUsecase, getHomeDataUsecase);
