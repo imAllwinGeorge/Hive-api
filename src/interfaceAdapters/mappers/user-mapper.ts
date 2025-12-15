@@ -2,7 +2,7 @@ import type { IUserMapper } from "../../entities/mapperInterfaces/user-mapper.in
 import type { IUserEntity } from "../../entities/models/user.entity";
 import type { IUserModel } from "../../frameworks/database/mongo/models/user.model";
 import type { UserDTO } from "../../shared/types/dto";
-import type { userResponseDTO } from "../../shared/types/responseDTO";
+import type { UserResponseDTO } from "../../shared/types/responseDTO";
 
 export class UserMapper implements IUserMapper {
   toEntity(userData: UserDTO): IUserEntity {
@@ -13,11 +13,11 @@ export class UserMapper implements IUserMapper {
       isAdmin: false,
       isBlocked: false,
       createdAt: new Date(),
-      updateAt: new Date(),
+      updatedAt: new Date(),
     };
   }
 
-  toResponse(userEntity: IUserModel): userResponseDTO {
+  toResponse(userEntity: IUserModel): UserResponseDTO {
     return {
       _id: userEntity._id,
       userName: userEntity.userName,
@@ -25,7 +25,7 @@ export class UserMapper implements IUserMapper {
       isAdmin: false,
       isBlocked: false,
       createdAt: userEntity.createdAt,
-      updatedAt: userEntity.updateAt,
+      updatedAt: userEntity.updatedAt,
     };
   }
 }
