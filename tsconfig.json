@@ -44,7 +44,9 @@
     // new options
     "allowSyntheticDefaultImports": true,
     "moduleResolution": "node",
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "allowArbitraryExtensions": true,
+    "noEmit": false,
   },
   "include": ["src"]
 }
