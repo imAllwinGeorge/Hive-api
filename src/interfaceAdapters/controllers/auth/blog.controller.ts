@@ -6,7 +6,7 @@ import type { ICreateBlogUsecase } from "../../../entities/usecaseInterfaces/blo
 import type { IGetBlogUsecase } from "../../../entities/usecaseInterfaces/blog/get_blog.usecase.interface";
 import type { IEditBlogUsecase } from "../../../entities/usecaseInterfaces/blog/edit_blog.usecase.interface";
 import { calculateTotalPages, getPaginationParams } from "../../../shared/utils/pagination.helpers";
-import type { IGetHomeDataUsecase } from "../../../entities/usecaseInterfaces/blog/get_home-Data.usecase.interface";
+import type { IGetHomeDataUsecase } from "../../../entities/usecaseInterfaces/blog/get_home-data.usecase.interface";
 
 export class BlogController implements IBlogController {
   constructor(
