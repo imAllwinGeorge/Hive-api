@@ -1,8 +1,8 @@
 import type { Schema } from "mongoose";
-import type { IJwtServices } from "../../entities/services/jwt-services.interface";
-import type { IGenerateTokenUsecase } from "../../entities/usecaseInterfaces/auth/generate_token.usecase.interface";
-import { AppError } from "../../shared/errors/appError";
-import { HttpStatusCode } from "../../shared/constants/constants";
+import type { IJwtServices } from "../../entities/services/jwt-services.interface.js";
+import type { IGenerateTokenUsecase } from "../../entities/usecaseInterfaces/auth/generate_token.usecase.interface.js";
+import { AppError } from "../../shared/errors/appError.js";
+import { HttpStatusCode } from "../../shared/constants/constants.js";
 
 export class GenerageTokenUsecase implements IGenerateTokenUsecase {
   constructor(private _jwtServices: IJwtServices) {}

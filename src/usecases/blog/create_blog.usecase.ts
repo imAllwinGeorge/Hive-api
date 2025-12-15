@@ -1,10 +1,10 @@
-import type { IBlogMapper } from "../../entities/mapperInterfaces/blog-mapper.interface";
-import type { IBlogRepository } from "../../entities/repositoryInterfaces/blog-repository.interface";
-import type { ICreateBlogUsecase } from "../../entities/usecaseInterfaces/blog/create_blog.usecase.interface";
-import type { IBlogModel } from "../../frameworks/database/mongo/models/blog.model";
-import { HttpStatusCode } from "../../shared/constants/constants";
-import { AppError } from "../../shared/errors/appError";
-import type { BlogResponseDTO } from "../../shared/types/responseDTO";
+import type { IBlogMapper } from "../../entities/mapperInterfaces/blog-mapper.interface.js";
+import type { IBlogRepository } from "../../entities/repositoryInterfaces/blog-repository.interface.js";
+import type { ICreateBlogUsecase } from "../../entities/usecaseInterfaces/blog/create_blog.usecase.interface.js";
+import type { IBlogModel } from "../../frameworks/database/mongo/models/blog.model.js";
+import { HttpStatusCode } from "../../shared/constants/constants.js";
+import { AppError } from "../../shared/errors/appError.js";
+import type { BlogResponseDTO } from "../../shared/types/responseDTO.js";
 
 export class CreateBlogUsecase implements ICreateBlogUsecase {
     constructor (

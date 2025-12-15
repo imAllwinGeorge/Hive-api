@@ -2,9 +2,14 @@ import cookieParser from "cookie-parser";
 import express from "express";
 import cors from "cors";
 import path from "path";
-import { config } from "../../shared/config";
-import { AuthRoutes } from "../../interfaceAdapters/routes/auth-route";
-import { BlogRoute } from "../../interfaceAdapters/routes/blog-route";
+import { config } from "../../shared/config.js";
+import { AuthRoutes } from "../../interfaceAdapters/routes/auth-route.js";
+import { BlogRoute } from "../../interfaceAdapters/routes/blog-route.js";
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const app = express();
 const authRoutes = new AuthRoutes();

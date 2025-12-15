@@ -1,7 +1,7 @@
 import type { NextFunction, Request, Response } from "express";
-import { BaseRoute } from "./base-route";
-import upload from "../../frameworks/multer/multer";
-import { blogController } from "../../frameworks/di/container";
+import { BaseRoute } from "./base-route.js";
+import upload from "../../frameworks/multer/multer.js";
+import { blogController } from "../../frameworks/di/container.js";
 
 export class BlogRoute extends BaseRoute {
     constructor () {

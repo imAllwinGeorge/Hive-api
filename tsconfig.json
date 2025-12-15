@@ -43,7 +43,7 @@
 
     // new options
     "allowSyntheticDefaultImports": true,
-    "moduleResolution": "bundler",
+    "moduleResolution": "node",
     "esModuleInterop": true,
     "allowArbitraryExtensions": true,
     "noEmit": false,

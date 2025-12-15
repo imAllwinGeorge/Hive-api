@@ -1,18 +1,19 @@
 import type { Request, Response, NextFunction } from "express";
-import type { IAuthController } from "../../../entities/controllerInterfaces/auth-controller.interface";
-import { userRegisterSchema } from "../../../shared/validations/user-register.validation.schema";
-import type { IRegisterUsecase } from "../../../entities/usecaseInterfaces/auth/register-usecase.interface";
-import type { IUserMapper } from "../../../entities/mapperInterfaces/user-mapper.interface";
-import { HttpStatusCode } from "../../../shared/constants/constants";
-import type { ISendOtpUsecase } from "../../../entities/usecaseInterfaces/auth/send-otp.interface";
-import type { IVerifyOtpUsecase } from "../../../entities/usecaseInterfaces/auth/verify_otp-usecase.interface";
-import { VerifyOtpUsecase } from "../../../usecases/auth/verify-otp.usecase";
-import type { IGenerateTokenUsecase } from "../../../entities/usecaseInterfaces/auth/generate_token.usecase.interface";
-import { clearAuthCookies, setAuthCookies } from "../../../shared/utils/cookie.helpers";
-import type { IResendOtpUsecase } from "../../../entities/usecaseInterfaces/auth/resend_otp.usecase.interface";
-import type { ILoginUsecase } from "../../../entities/usecaseInterfaces/auth/login.usecase.interface";
-import { emailSchema } from "../../../shared/validations/email-validation";
-import { passwordSchema } from "../../../shared/validations/password-validation";
+import type { IAuthController } from "../../../entities/controllerInterfaces/auth-controller.interface.js";
+import { userRegisterSchema } from "../../../shared/validations/user-register.validation.schema.js";
+import type { IRegisterUsecase } from "../../../entities/usecaseInterfaces/auth/register-usecase.interface.js";
+import type { IUserMapper } from "../../../entities/mapperInterfaces/user-mapper.interface.js";
+import { HttpStatusCode } from "../../../shared/constants/constants.js";
+import type { ISendOtpUsecase } from "../../../entities/usecaseInterfaces/auth/send-otp.interface.js";
+import type { IVerifyOtpUsecase } from "../../../entities/usecaseInterfaces/auth/verify_otp-usecase.interface.js";
+import { VerifyOtpUsecase } from "../../../usecases/auth/verify-otp.usecase.js";
+import type { IGenerateTokenUsecase } from "../../../entities/usecaseInterfaces/auth/generate_token.usecase.interface.js";
+import { clearAuthCookies, setAuthCookies } from "../../../shared/utils/cookie.helpers.js";
+import type { IResendOtpUsecase } from "../../../entities/usecaseInterfaces/auth/resend_otp.usecase.interface.js";
+import type { ILoginUsecase } from "../../../entities/usecaseInterfaces/auth/login.usecase.interface.js";
+import { emailSchema } from "../../../shared/validations/email-validation.js";
+import { passwordSchema } from "../../../shared/validations/password-validation.js";
+import type { UserDTO } from "../../../shared/types/dto.js";
 
 export class AuthController implements IAuthController {
     constructor (
@@ -34,7 +35,7 @@ export class AuthController implements IAuthController {
             
             const parsed = userRegisterSchema.parse(req.body);
 
-            const data = this._userMapper.toEntity(parsed);
+            const data = this._userMapper.toEntity(parsed as UserDTO);
 
             const otp = await this._registerUsecase.execute(data);
 

@@ -1,5 +1,5 @@
-import type { ISendOtpService } from "../../entities/services/send-otp.service.interface";
-import type { ISendOtpUsecase } from "../../entities/usecaseInterfaces/auth/send-otp.interface";
+import type { ISendOtpService } from "../../entities/services/send-otp.service.interface.js";
+import type { ISendOtpUsecase } from "../../entities/usecaseInterfaces/auth/send-otp.interface.js";
 
 export class SendOtpUsecase implements ISendOtpUsecase {
 

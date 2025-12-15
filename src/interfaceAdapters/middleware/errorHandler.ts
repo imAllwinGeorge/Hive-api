@@ -5,9 +5,9 @@ import type {
   Response,
 } from "express";
 import type { Error } from "mongoose";
-import { AppError } from "../../shared/errors/appError";
+import { AppError } from "../../shared/errors/appError.js";
 import { ZodError } from "zod";
-import { config } from "../../shared/config";
+import { config } from "../../shared/config.js";
 
 export const errorHandler: ErrorRequestHandler = (
   err: Error,
