@@ -14,7 +14,7 @@ export class BaseRepository<T> implements IBaseRepository<T> {
   async findAll(
     limit: number,
     skip: number,
-    filter: FilterQuery<T>
+    filter: FilterQuery<object>
   ): Promise<{ items: T[]; total: number }> {
     const [items, total] = await Promise.all([
       this.model

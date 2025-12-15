@@ -5,6 +5,8 @@ import type { BlogSection } from "../../../entities/models/blog.entity";
 import type { ICreateBlogUsecase } from "../../../entities/usecaseInterfaces/blog/create_blog.usecase.interface";
 import type { IGetBlogUsecase } from "../../../entities/usecaseInterfaces/blog/get_blog.usecase.interface";
 import type { IEditBlogUsecase } from "../../../entities/usecaseInterfaces/blog/edit_blog.usecase.interface";
+import { calculateTotalPages, getPaginationParams } from "../../../shared/utils/pagination.helpers";
+import type { IGetHomeDataUsecase } from "../../../entities/usecaseInterfaces/blog/get_home-Data.usecase.interface";
 
 export class BlogController implements IBlogController {
   constructor(
@@ -13,6 +15,8 @@ export class BlogController implements IBlogController {
     private _getBlogUsecase: IGetBlogUsecase,
 
     private _editBlogUsecase: IEditBlogUsecase,
+
+    private _getHomeDataUsecase: IGetHomeDataUsecase,
   ) {}
 
   async createBlog(
@@ -23,7 +27,7 @@ export class BlogController implements IBlogController {
     try {
       const files = req.files as Express.Multer.File[];
       const body = req.body;
-        console.log(files, body)
+      console.log(files, body);
       const sections: {
         sectionTitle?: string;
         content?: string;
@@ -45,7 +49,7 @@ export class BlogController implements IBlogController {
       try {
         parsedSections = JSON.parse(body.sections);
       } catch (err) {
-        console.log("create blog error: ",err);
+        console.log("create blog error: ", err);
         res
           .status(HttpStatusCode.BAD_REQUEST)
           .json({ message: "Invalid sections JSON" });
@@ -76,29 +80,33 @@ export class BlogController implements IBlogController {
       (blog.sections as object) = sections;
 
       const newBlog = await this._createBlogUsecase.execute(blog);
-      console.log(newBlog)
+      console.log(newBlog);
       res.status(HttpStatusCode.CREATED).json({ blog: newBlog });
     } catch (error) {
       next(error);
     }
   }
 
-  async getBlog(req: Request, res: Response, next: NextFunction): Promise<void> {
+  async getBlog(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> {
     try {
-      const {blogId} = req.params
+      const { blogId } = req.params;
 
       const blog = await this._getBlogUsecase.execute(blogId as string);
 
-      res.status(HttpStatusCode.OK).json({blog});
+      res.status(HttpStatusCode.OK).json({ blog });
     } catch (error) {
       next(error);
     }
   }
 
-   async editBlog(
+  async editBlog(
     req: Request,
     res: Response,
-    next: NextFunction,
+    next: NextFunction
   ): Promise<void> {
     try {
       const blogId = req.params.blogId;
@@ -132,7 +140,11 @@ export class BlogController implements IBlogController {
           } else {
             // This is a section image
             const sectionIndex = parseInt(file.fieldname.slice(-1));
-            console.log("loiwoigj  ", parsedSections[sectionIndex], sectionIndex)
+            console.log(
+              "loiwoigj  ",
+              parsedSections[sectionIndex],
+              sectionIndex
+            );
             if (parsedSections[sectionIndex]) {
               parsedSections[sectionIndex].image = file.path;
             }
@@ -150,4 +162,31 @@ export class BlogController implements IBlogController {
       next(error);
     }
   }
+
+  async getHomeData(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const { search } = req.query
+    const { limit, skip } = getPaginationParams(req)
+
+    const filter: Record<string, unknown> = {
+      isBlocked: false,
+    }
+
+    if (typeof search === "string" && search.trim()) {
+      filter.title = {
+        $regex: search.trim(),
+        $options: "i", // case-insensitive
+      }
+    }
+
+    const result = await this._getHomeDataUsecase.execute(limit, skip, filter)
+
+    result.total = calculateTotalPages(result.total, limit);
+
+    res.status(HttpStatusCode.OK).json(result)
+  } catch (error) {
+    next(error)
+  }
+}
+
 }

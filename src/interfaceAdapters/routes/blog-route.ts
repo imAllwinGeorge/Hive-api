@@ -20,5 +20,9 @@ export class BlogRoute extends BaseRoute {
         this.router.put("/edit-blog/:blogId", upload.any(), (req: Request, res: Response, next: NextFunction) => {
             blogController.editBlog(req, res, next);
         })
+
+        this.router.get("/home", (req: Request, res: Response, next: NextFunction) => {
+            blogController.getHomeData(req, res, next);
+        })
     }
 }
