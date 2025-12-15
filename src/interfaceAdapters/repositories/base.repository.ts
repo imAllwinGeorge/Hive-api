@@ -32,8 +32,8 @@ export class BaseRepository<T> implements IBaseRepository<T> {
     return this.model.findOne(filter);
   }
 
-  async findById(filter: FilterQuery<T>): Promise<T | null> {
-    return this.model.findById(filter);
+  async findById(id: string): Promise<T | null> {
+    return this.model.findById(id);
   }
 
   async save(data: Partial<T>): Promise<T> {
