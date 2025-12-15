@@ -1,6 +1,6 @@
-import type { IJwtServices } from "../../entities/services/jwt-services.interface";
+import type { IJwtServices } from "../../entities/services/jwt-services.interface.js";
 import jwt, { type JwtPayload } from "jsonwebtoken";
-import { config } from "../../shared/config";
+import { config } from "../../shared/config.js";
 
 export class JwtServices implements IJwtServices {
     generateAccessToken(payload: object): string {

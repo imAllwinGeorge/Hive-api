@@ -1,5 +1,5 @@
-import type { IBlogModel } from "../../../frameworks/database/mongo/models/blog.model";
-import type { BlogResponseDTO } from "../../../shared/types/responseDTO";
+import type { IBlogModel } from "../../../frameworks/database/mongo/models/blog.model.js";
+import type { BlogResponseDTO } from "../../../shared/types/responseDTO.js";
 
 export interface IEditBlogUsecase {
     execute(blogId: string, editedBlog: Partial<IBlogModel>): Promise<BlogResponseDTO>;

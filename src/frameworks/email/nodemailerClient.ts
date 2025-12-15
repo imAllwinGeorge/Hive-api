@@ -1,5 +1,5 @@
 import nodemailer from "nodemailer";
-import { config } from "../../shared/config";
+import { config } from "../../shared/config.js";
 const transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
     port: 587,

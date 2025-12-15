@@ -1,8 +1,8 @@
-import type { IBlogMapper } from "../../entities/mapperInterfaces/blog-mapper.interface";
-import type { FilterQuery } from "../../entities/repositoryInterfaces/base-repository.interface";
-import type { IBlogRepository } from "../../entities/repositoryInterfaces/blog-repository.interface";
-import type { IGetHomeDataUsecase } from "../../entities/usecaseInterfaces/blog/get_home-data.usecase.interface";
-import type { BlogResponseDTO } from "../../shared/types/responseDTO";
+import type { IBlogMapper } from "../../entities/mapperInterfaces/blog-mapper.interface.js";
+import type { FilterQuery } from "../../entities/repositoryInterfaces/base-repository.interface.js";
+import type { IBlogRepository } from "../../entities/repositoryInterfaces/blog-repository.interface.js";
+import type { IGetHomeDataUsecase } from "../../entities/usecaseInterfaces/blog/get_home-data.usecase.interface.js";
+import type { BlogResponseDTO } from "../../shared/types/responseDTO.js";
 
 export class GetHomeDataUsecase implements IGetHomeDataUsecase {
   constructor(

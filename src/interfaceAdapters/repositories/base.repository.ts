@@ -2,7 +2,7 @@ import type { Model } from "mongoose";
 import type {
   FilterQuery,
   IBaseRepository,
-} from "../../entities/repositoryInterfaces/base-repository.interface";
+} from "../../entities/repositoryInterfaces/base-repository.interface.js";
 
 export class BaseRepository<T> implements IBaseRepository<T> {
   constructor(protected model: Model<T>) {}

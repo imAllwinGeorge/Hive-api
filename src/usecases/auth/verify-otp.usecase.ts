@@ -1,10 +1,10 @@
-import type { IUserMapper } from "../../entities/mapperInterfaces/user-mapper.interface";
-import type { IPendingUserRepository } from "../../entities/repositoryInterfaces/pending-user-repository.interface";
-import type { IUserRepository } from "../../entities/repositoryInterfaces/user-repository.interface";
-import type { IVerifyOtpUsecase } from "../../entities/usecaseInterfaces/auth/verify_otp-usecase.interface";
-import { HttpStatusCode } from "../../shared/constants/constants";
-import { AppError } from "../../shared/errors/appError";
-import type { UserResponseDTO } from "../../shared/types/responseDTO";
+import type { IUserMapper } from "../../entities/mapperInterfaces/user-mapper.interface.js";
+import type { IPendingUserRepository } from "../../entities/repositoryInterfaces/pending-user-repository.interface.js";
+import type { IUserRepository } from "../../entities/repositoryInterfaces/user-repository.interface.js";
+import type { IVerifyOtpUsecase } from "../../entities/usecaseInterfaces/auth/verify_otp-usecase.interface.js";
+import { HttpStatusCode } from "../../shared/constants/constants.js";
+import { AppError } from "../../shared/errors/appError.js";
+import type { UserResponseDTO } from "../../shared/types/responseDTO.js";
 
 export class VerifyOtpUsecase implements IVerifyOtpUsecase {
   constructor(
