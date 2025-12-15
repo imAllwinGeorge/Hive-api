@@ -1,23 +1,7 @@
 import type { ObjectId } from "mongoose";
+import type { IBaseEntity } from "./base.entity";
 
-interface BaseEntitiy {
-  _id: ObjectId;
-  createdAt: Date;
-  updatedAt: Date;
-}
-
-export type UserResponseDTO = {
-    _id: ObjectId;
-    userName: string;
-    email: string;
-    isAdmin: boolean;
-    isBlocked: boolean;
-    createdAt: Date;
-    updatedAt: Date;
-}
-
-export interface BlogResponseDTO extends BaseEntitiy {
-  _id: ObjectId;
+export interface IBlogEntity extends IBaseEntity {
   userId: string; // Author's user ID
   title: string; // Blog title
   author: string; // Author name (redundant but useful for fast access)

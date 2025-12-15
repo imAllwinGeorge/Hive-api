@@ -1,5 +1,8 @@
 import { AuthController } from "../../interfaceAdapters/controllers/auth/auth.controller";
+import { BlogController } from "../../interfaceAdapters/controllers/auth/blog.controller";
+import { BlogMapper } from "../../interfaceAdapters/mappers/blog-mapper";
 import { UserMapper } from "../../interfaceAdapters/mappers/user-mapper";
+import { BlogRepository } from "../../interfaceAdapters/repositories/blog.repository";
 import { PendingUserRepository } from "../../interfaceAdapters/repositories/pending-user.repository";
 import { UserRepository } from "../../interfaceAdapters/repositories/user.repository";
 import { JwtServices } from "../../interfaceAdapters/services/jwt-services";
@@ -11,16 +14,21 @@ import { RegisterUsecase } from "../../usecases/auth/register-usecase";
 import { ResendOtpUsecase } from "../../usecases/auth/resend_otp.usecase";
 import { SendOtpUsecase } from "../../usecases/auth/send-otp.usecase";
 import { VerifyOtpUsecase } from "../../usecases/auth/verify-otp.usecase";
+import { CreateBlogUsecase } from "../../usecases/blog/create_blog.usecase";
 import { PasswordBcrypt } from "../security/password-bcyrpt";
 
 
 //----------Mappers-------------
 const userMapper = new UserMapper();
 
+const blogMapper = new BlogMapper();
+
 //----------Repositories-------------
 const userRepository = new UserRepository();
 
 const pendingUserRepository = new PendingUserRepository();
+
+const blogRepository = new BlogRepository();
 
 
 
@@ -48,7 +56,11 @@ const resendOtpUsecase = new ResendOtpUsecase(pendingUserRepository, otpSerivce,
 
 const loginUsecase = new LoginUsecase(userRepository, bcrypt, userMapper);
 
+const createBlogUsecase = new CreateBlogUsecase(blogRepository, blogMapper);
+
 
 
 //-----------Controllers---------------
 export const authController = new AuthController(registerUsecase, userMapper, verifyUsecase, generateTokenUsecase, resendOtpUsecase, loginUsecase);
+
+export const blogController = new BlogController(createBlogUsecase)
