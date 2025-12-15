@@ -4,12 +4,15 @@ import { HttpStatusCode } from "../../../shared/constants/constants";
 import type { BlogSection } from "../../../entities/models/blog.entity";
 import type { ICreateBlogUsecase } from "../../../entities/usecaseInterfaces/blog/create_blog.usecase.interface";
 import type { IGetBlogUsecase } from "../../../entities/usecaseInterfaces/blog/get_blog.usecase.interface";
+import type { IEditBlogUsecase } from "../../../entities/usecaseInterfaces/blog/edit_blog.usecase.interface";
 
 export class BlogController implements IBlogController {
   constructor(
     private _createBlogUsecase: ICreateBlogUsecase,
 
     private _getBlogUsecase: IGetBlogUsecase,
+
+    private _editBlogUsecase: IEditBlogUsecase,
   ) {}
 
   async createBlog(
@@ -56,9 +59,9 @@ export class BlogController implements IBlogController {
             file.fieldname.split("section-image-")[1] as string
           );
           if (!sections[index]) sections[index] = {};
-          sections[index].image = file.filename;
+          sections[index].image = file.path;
         } else if (file.fieldname === "coverImage") {
-          blog.image = file.filename;
+          blog.image = file.path;
         }
       });
 
@@ -87,6 +90,62 @@ export class BlogController implements IBlogController {
       const blog = await this._getBlogUsecase.execute(blogId as string);
 
       res.status(HttpStatusCode.OK).json({blog});
+    } catch (error) {
+      next(error);
+    }
+  }
+
+   async editBlog(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<void> {
+    try {
+      const blogId = req.params.blogId;
+      const body = req.body;
+      const files = req.files as Express.Multer.File[];
+      console.log(blogId);
+      type Sections = {
+        sectionTitle?: string;
+        content?: string;
+        image: string;
+      };
+
+      // Parse the sections from string to array
+      let parsedSections: Sections[] = [];
+      if (body.sections) {
+        try {
+          parsedSections = JSON.parse(body.sections);
+        } catch (err) {
+          console.error("Failed to parse sections:", err);
+          res.status(400).json({ message: "Invalid sections format" });
+          return;
+        }
+      }
+      // console.log("parsedSections in editblog: ",parsedSections)
+      // Handle image uploads
+      if (files && files.length) {
+        files.forEach((file) => {
+          console.log(file);
+          if (file.fieldname === "coverImage") {
+            body.image = file.path;
+          } else {
+            // This is a section image
+            const sectionIndex = parseInt(file.fieldname.slice(-1));
+            console.log("loiwoigj  ", parsedSections[sectionIndex], sectionIndex)
+            if (parsedSections[sectionIndex]) {
+              parsedSections[sectionIndex].image = file.path;
+            }
+          }
+        });
+      }
+      // console.log("parsedsections after file attached: ", parsedSections)
+      // Replace sections with the updated array
+      body.sections = parsedSections;
+      console.log("body after attachments: ", body);
+      const blog = await this._editBlogUsecase.execute(blogId as string, body);
+
+      res.status(HttpStatusCode.OK).json({ blog });
     } catch (error) {
       next(error);
     }

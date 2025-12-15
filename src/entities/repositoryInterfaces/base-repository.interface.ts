@@ -9,4 +9,5 @@ export interface IBaseRepository<T> {
   findById(id: string): Promise<T | null>;
   save(data: Partial<T>): Promise<T>;
   findOneAndUpdate(filter: FilterQuery<T>, value: Partial<T>): Promise<T | null>;
+  findByIdAndUpdate(id: string, value: Partial<T>): Promise<T | null>;
 }
