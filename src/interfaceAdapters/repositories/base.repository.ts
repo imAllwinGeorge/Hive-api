@@ -43,9 +43,13 @@ export class BaseRepository<T> implements IBaseRepository<T> {
   }
 
   async findOneAndUpdate(
-    filter: FilterQuery<T>,
+    filter: FilterQuery<any>,
     value: Partial<T>
   ): Promise<T | null> {
-    return this.model.findByIdAndUpdate(filter, { $set: value }, { new: true });
+    return this.model.findOneAndUpdate(filter, { $set: value }, { new: true });
+  }
+
+  async findByIdAndUpdate(id: string, value: Partial<T>): Promise<T | null> {
+    return this.model.findByIdAndUpdate(id, { $set: value }, { new: true });
   }
 }
