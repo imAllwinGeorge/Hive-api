@@ -94,9 +94,9 @@ export class BlogController implements IBlogController {
   ): Promise<void> {
     try {
       const { blogId } = req.params;
-
+      console.log(blogId)
       const blog = await this._getBlogUsecase.execute(blogId as string);
-
+      console.log(blog)
       res.status(HttpStatusCode.OK).json({ blog });
     } catch (error) {
       next(error);
