@@ -1,4 +1,4 @@
-import type { Request, Response, NextFunction } from "express";
+import type { Request, Response, NextFunction, response } from "express";
 import type { IAuthController } from "../../../entities/controllerInterfaces/auth-controller.interface.js";
 import { userRegisterSchema } from "../../../shared/validations/user-register.validation.schema.js";
 import type { IRegisterUsecase } from "../../../entities/usecaseInterfaces/auth/register-usecase.interface.js";
@@ -14,6 +14,8 @@ import type { ILoginUsecase } from "../../../entities/usecaseInterfaces/auth/log
 import { emailSchema } from "../../../shared/validations/email-validation.js";
 import { passwordSchema } from "../../../shared/validations/password-validation.js";
 import type { UserDTO } from "../../../shared/types/dto.js";
+import type { IRefreshTokenUsecase } from "../../../entities/usecaseInterfaces/auth/refresh_token.usecase.interface.js";
+import type { IJwtServices } from "../../../entities/services/jwt-services.interface.js";
 
 export class AuthController implements IAuthController {
     constructor (
@@ -28,6 +30,8 @@ export class AuthController implements IAuthController {
         private _resendOtpUsecase: IResendOtpUsecase,
 
         private _loginUsecase: ILoginUsecase,
+
+        private _refreshTokenUsecase: IRefreshTokenUsecase,
     ) {}
 
     async register(req: Request, res: Response, next: NextFunction): Promise<void> {
@@ -95,6 +99,22 @@ export class AuthController implements IAuthController {
             clearAuthCookies(res);
 
             res.status(HttpStatusCode.OK).json({success: true})
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    async refreshToken(req: Request, res: Response, next: NextFunction): Promise<void> {
+        try {
+            const { refreshToken } = req.cookies;
+
+            const payload = await this._refreshTokenUsecase.execute(refreshToken);
+
+            const tokens = await this._generateTokenUsecase.execute(payload.userId, payload.email);
+
+            setAuthCookies(res, tokens.accessToken, tokens.refreshToken);
+
+            res.status(HttpStatusCode.OK).json({message: "Token validated"});
         } catch (error) {
             next(error);
         }
