@@ -1,22 +1,37 @@
 import type { Response } from "express";
 import { config } from "../config";
 
-export const setAuthCookies = ( res: Response, accessToken: string, refreshToken: string) => {
-    res.cookie("accessToken", accessToken, {
-        httpOnly: true,
-        sameSite: "strict",
-        secure: config.NODE_ENV === "production",
-        maxAge: 24 * 60 * 60 * 1000,
-    });
-    res.cookie("refreshToken", refreshToken, {
-        httpOnly: true,
-        sameSite: "strict",
-        secure: config.NODE_ENV === "production",
-        maxAge: 15 * 24 * 60 * 60 * 1000,
-    })
+
+export const setAuthCookies = (
+  res: Response,
+  accessToken: string,
+  refreshToken: string
+) => {
+  const isProd = config.NODE_ENV === "production";
+
+  res.cookie("accessToken", accessToken, {
+    httpOnly: true,
+    secure: isProd,                 // MUST be true in prod
+    sameSite: isProd ? "none" : "lax",
+    maxAge: 24 * 60 * 60 * 1000,
+  });
+
+  res.cookie("refreshToken", refreshToken, {
+    httpOnly: true,
+    secure: isProd,
+    sameSite: isProd ? "none" : "lax",
+    maxAge: 15 * 24 * 60 * 60 * 1000,
+  });
 };
 
+
 export const clearAuthCookies = (res: Response) => {
-    res.clearCookie("accessToken");
-    res.clearCookie("refreshToken");
-}
+  res.clearCookie("accessToken", {
+    sameSite: "none",
+    secure: true,
+  });
+  res.clearCookie("refreshToken", {
+    sameSite: "none",
+    secure: true,
+  });
+};
