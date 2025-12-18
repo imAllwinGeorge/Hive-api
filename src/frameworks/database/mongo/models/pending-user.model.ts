@@ -1,5 +1,5 @@
 import { model, Schema, type ObjectId } from "mongoose";
-import type { IPendingUserEntity } from "../../../../entities/models/pending-user.entity.js";
+import type { IPendingUserEntity } from "../../../../entities/models/pending-user.entity";
 
 export interface IPendingUserModel extends IPendingUserEntity {
     _id: ObjectId

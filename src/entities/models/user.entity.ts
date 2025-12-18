@@ -1,4 +1,4 @@
-import type { IBaseEntity } from "./base.entity.js";
+import type { IBaseEntity } from "./base.entity";
 
 export interface IUserEntity extends IBaseEntity {
     userName: string;

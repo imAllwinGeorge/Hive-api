@@ -1,12 +1,12 @@
 import type { NextFunction, Request, Response } from "express";
-import type { IBlogController } from "../../../entities/controllerInterfaces/blog-controller.interface.js";
-import { HttpStatusCode } from "../../../shared/constants/constants.js";
-import type { BlogSection } from "../../../entities/models/blog.entity.js";
-import type { ICreateBlogUsecase } from "../../../entities/usecaseInterfaces/blog/create_blog.usecase.interface.js";
-import type { IGetBlogUsecase } from "../../../entities/usecaseInterfaces/blog/get_blog.usecase.interface.js";
-import type { IEditBlogUsecase } from "../../../entities/usecaseInterfaces/blog/edit_blog.usecase.interface.js";
-import { calculateTotalPages, getPaginationParams } from "../../../shared/utils/pagination.helpers.js";
-import type { IGetHomeDataUsecase } from "../../../entities/usecaseInterfaces/blog/get_home-data.usecase.interface.js";
+import type { IBlogController } from "../../../entities/controllerInterfaces/blog-controller.interface";
+import { HttpStatusCode } from "../../../shared/constants/constants";
+import type { BlogSection } from "../../../entities/models/blog.entity";
+import type { ICreateBlogUsecase } from "../../../entities/usecaseInterfaces/blog/create_blog.usecase.interface";
+import type { IGetBlogUsecase } from "../../../entities/usecaseInterfaces/blog/get_blog.usecase.interface";
+import type { IEditBlogUsecase } from "../../../entities/usecaseInterfaces/blog/edit_blog.usecase.interface";
+import { calculateTotalPages, getPaginationParams } from "../../../shared/utils/pagination.helpers";
+import type { IGetHomeDataUsecase } from "../../../entities/usecaseInterfaces/blog/get_home-data.usecase.interface";
 
 export class BlogController implements IBlogController {
   constructor(

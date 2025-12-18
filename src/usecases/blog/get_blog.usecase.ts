@@ -1,9 +1,9 @@
-import type { IBlogMapper } from "../../entities/mapperInterfaces/blog-mapper.interface.js";
-import type { IBlogRepository } from "../../entities/repositoryInterfaces/blog-repository.interface.js";
-import type { IGetBlogUsecase } from "../../entities/usecaseInterfaces/blog/get_blog.usecase.interface.js";
-import type { BlogResponseDTO } from "../../shared/types/responseDTO.js";
-import { AppError } from "../../shared/errors/appError.js";
-import { HttpStatusCode } from "../../shared/constants/constants.js";
+import type { IBlogMapper } from "../../entities/mapperInterfaces/blog-mapper.interface";
+import type { IBlogRepository } from "../../entities/repositoryInterfaces/blog-repository.interface";
+import type { IGetBlogUsecase } from "../../entities/usecaseInterfaces/blog/get_blog.usecase.interface";
+import type { BlogResponseDTO } from "../../shared/types/responseDTO";
+import { AppError } from "../../shared/errors/appError";
+import { HttpStatusCode } from "../../shared/constants/constants";
 import { Schema } from "mongoose";
 
 export class GetBlogUsecase implements IGetBlogUsecase {

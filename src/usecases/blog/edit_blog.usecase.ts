@@ -1,11 +1,11 @@
 import { Schema, Types } from "mongoose";
-import type { IBlogMapper } from "../../entities/mapperInterfaces/blog-mapper.interface.js";
-import type { IBlogRepository } from "../../entities/repositoryInterfaces/blog-repository.interface.js";
-import type { IEditBlogUsecase } from "../../entities/usecaseInterfaces/blog/edit_blog.usecase.interface.js";
-import type { IBlogModel } from "../../frameworks/database/mongo/models/blog.model.js";
-import type { BlogResponseDTO } from "../../shared/types/responseDTO.js";
-import { AppError } from "../../shared/errors/appError.js";
-import { HttpStatusCode } from "../../shared/constants/constants.js";
+import type { IBlogMapper } from "../../entities/mapperInterfaces/blog-mapper.interface";
+import type { IBlogRepository } from "../../entities/repositoryInterfaces/blog-repository.interface";
+import type { IEditBlogUsecase } from "../../entities/usecaseInterfaces/blog/edit_blog.usecase.interface";
+import type { IBlogModel } from "../../frameworks/database/mongo/models/blog.model";
+import type { BlogResponseDTO } from "../../shared/types/responseDTO";
+import { AppError } from "../../shared/errors/appError";
+import { HttpStatusCode } from "../../shared/constants/constants";
 
 export class EditBlogUsecase implements IEditBlogUsecase {
   constructor(

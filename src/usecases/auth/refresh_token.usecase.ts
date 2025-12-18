@@ -1,8 +1,8 @@
 import type { JwtPayload } from "jsonwebtoken";
-import type { IRefreshTokenUsecase } from "../../entities/usecaseInterfaces/auth/refresh_token.usecase.interface.js";
-import type { IJwtServices } from "../../entities/services/jwt-services.interface.js";
-import { AppError } from "../../shared/errors/appError.js";
-import { HttpStatusCode } from "../../shared/constants/constants.js";
+import type { IRefreshTokenUsecase } from "../../entities/usecaseInterfaces/auth/refresh_token.usecase.interface";
+import type { IJwtServices } from "../../entities/services/jwt-services.interface";
+import { AppError } from "../../shared/errors/appError";
+import { HttpStatusCode } from "../../shared/constants/constants";
 
 export class RefreshTokenUsecase implements IRefreshTokenUsecase {
     constructor(

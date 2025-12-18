@@ -1,8 +1,8 @@
-import type { IUserMapper } from "../../entities/mapperInterfaces/user-mapper.interface.js";
-import type { IUserEntity } from "../../entities/models/user.entity.js";
-import type { IUserModel } from "../../frameworks/database/mongo/models/user.model.js";
-import type { UserDTO } from "../../shared/types/dto.js";
-import type { UserResponseDTO } from "../../shared/types/responseDTO.js";
+import type { IUserMapper } from "../../entities/mapperInterfaces/user-mapper.interface";
+import type { IUserEntity } from "../../entities/models/user.entity";
+import type { IUserModel } from "../../frameworks/database/mongo/models/user.model";
+import type { UserDTO } from "../../shared/types/dto";
+import type { UserResponseDTO } from "../../shared/types/responseDTO";
 
 export class UserMapper implements IUserMapper {
   toEntity(userData: UserDTO): IUserEntity {

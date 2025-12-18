@@ -1,5 +1,5 @@
-import type { BlogResponseDTO } from "../../../shared/types/responseDTO.js";
-import type { FilterQuery } from "../../repositoryInterfaces/base-repository.interface.js";
+import type { BlogResponseDTO } from "../../../shared/types/responseDTO";
+import type { FilterQuery } from "../../repositoryInterfaces/base-repository.interface";
 
 export interface IGetHomeDataUsecase {
   execute(

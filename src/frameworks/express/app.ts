@@ -2,9 +2,9 @@ import cookieParser from "cookie-parser";
 import express from "express";
 import cors from "cors";
 import path from "path";
-import { config } from "../../shared/config.js";
-import { AuthRoutes } from "../../interfaceAdapters/routes/auth-route.js";
-import { BlogRoute } from "../../interfaceAdapters/routes/blog-route.js";
+import { config } from "../../shared/config";
+import { AuthRoutes } from "../../interfaceAdapters/routes/auth-route";
+import { BlogRoute } from "../../interfaceAdapters/routes/blog-route";
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 

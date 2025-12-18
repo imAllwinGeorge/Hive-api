@@ -1,8 +1,8 @@
 import type { NextFunction, Request, Response } from "express";
-import { BaseRoute } from "./base-route.js";
-import upload from "../../frameworks/multer/multer.js";
-import { blogController } from "../../frameworks/di/container.js";
-import { verifyToken } from "../middleware/auth.middleware.js";
+import { BaseRoute } from "./base-route";
+import upload from "../../frameworks/multer/multer";
+import { blogController } from "../../frameworks/di/container";
+import { verifyToken } from "../middleware/auth.middleware";
 
 export class BlogRoute extends BaseRoute {
     constructor () {

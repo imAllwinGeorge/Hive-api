@@ -1,4 +1,4 @@
-import type { IOtpService } from "../../entities/services/otp-service.interface.js";
+import type { IOtpService } from "../../entities/services/otp-service.interface";
 
 export class OtpSerivce implements IOtpService {
   constructor() {}

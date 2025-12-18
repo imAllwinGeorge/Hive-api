@@ -1,5 +1,5 @@
 import { model, Schema, type ObjectId } from "mongoose";
-import type { IUserEntity } from "../../../../entities/models/user.entity.js";
+import type { IUserEntity } from "../../../../entities/models/user.entity";
 
 export interface IUserModel extends IUserEntity{
     _id: ObjectId

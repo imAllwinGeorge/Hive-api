@@ -13,7 +13,7 @@
 // File: ../cloudinary/cloudinary.config.ts
 
 import { v2 as cloudinary } from "cloudinary";
-import { config } from "../../shared/config.js"; 
+import { config } from "../../shared/config"; 
 
 // 1. Configure the actual cloudinary object
 cloudinary.config({

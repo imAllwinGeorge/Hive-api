@@ -1,12 +1,12 @@
-import type { IUserEntity } from "../../entities/models/user.entity.js";
-import type { IPendingUserRepository } from "../../entities/repositoryInterfaces/pending-user-repository.interface.js";
-import type { IUserRepository } from "../../entities/repositoryInterfaces/user-repository.interface.js";
-import type { IBcrypt } from "../../entities/security/bcrypt.interface.js";
-import type { IOtpService } from "../../entities/services/otp-service.interface.js";
-import type { ISendOtpService } from "../../entities/services/send-otp.service.interface.js";
-import type { IRegisterUsecase } from "../../entities/usecaseInterfaces/auth/register-usecase.interface.js";
-import { HttpStatusCode } from "../../shared/constants/constants.js";
-import { AppError } from "../../shared/errors/appError.js";
+import type { IUserEntity } from "../../entities/models/user.entity";
+import type { IPendingUserRepository } from "../../entities/repositoryInterfaces/pending-user-repository.interface";
+import type { IUserRepository } from "../../entities/repositoryInterfaces/user-repository.interface";
+import type { IBcrypt } from "../../entities/security/bcrypt.interface";
+import type { IOtpService } from "../../entities/services/otp-service.interface";
+import type { ISendOtpService } from "../../entities/services/send-otp.service.interface";
+import type { IRegisterUsecase } from "../../entities/usecaseInterfaces/auth/register-usecase.interface";
+import { HttpStatusCode } from "../../shared/constants/constants";
+import { AppError } from "../../shared/errors/appError";
 
 export class RegisterUsecase implements IRegisterUsecase {
     constructor (

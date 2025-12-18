@@ -1,4 +1,4 @@
-import type { IUserEntity } from "../../models/user.entity.js";
+import type { IUserEntity } from "../../models/user.entity";
 
 export interface IRegisterUsecase {
     execute(data: IUserEntity): Promise<string>;

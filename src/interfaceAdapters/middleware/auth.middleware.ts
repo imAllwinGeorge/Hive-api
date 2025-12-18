@@ -1,6 +1,6 @@
 import type { NextFunction, Request, Response } from "express";
-import { HttpStatusCode } from "../../shared/constants/constants.js";
-import { verifyTokenUsecase } from "../../frameworks/di/container.js";
+import { HttpStatusCode } from "../../shared/constants/constants";
+import { verifyTokenUsecase } from "../../frameworks/di/container";
 
 export const verifyToken = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -23,8 +23,8 @@ export const verifyToken = async (req: Request, res: Response, next: NextFunctio
 } 
 
 // import type { NextFunction, Request, Response } from "express";
-// import type { IVerifyTokenUsecase } from "../../entities/usecaseInterfaces/auth/verify-token.usecase.interface.js";
-// import { HttpStatusCode } from "../../shared/constants/constants.js";
+// import type { IVerifyTokenUsecase } from "../../entities/usecaseInterfaces/auth/verify-token.usecase.interface";
+// import { HttpStatusCode } from "../../shared/constants/constants";
 
 // export const verifyToken =
 //   (verifyTokenUsecase: IVerifyTokenUsecase) =>

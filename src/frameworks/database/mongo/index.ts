@@ -1,5 +1,5 @@
 import mongoose from "mongoose"
-import { config } from "../../../shared/config.js"
+import { config } from "../../../shared/config"
 
 export const connectDB = async () => {
     try {
