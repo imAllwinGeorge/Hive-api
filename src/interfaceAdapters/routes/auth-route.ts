@@ -1,6 +1,6 @@
 import { request, type NextFunction, type Request, type Response } from "express";
-import { BaseRoute } from "./base-route.js";
-import { authController } from "../../frameworks/di/container.js";
+import { BaseRoute } from "./base-route";
+import { authController } from "../../frameworks/di/container";
 
 export class AuthRoutes extends BaseRoute {
     constructor () {

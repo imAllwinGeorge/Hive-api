@@ -1,5 +1,5 @@
 import type { ObjectId } from "mongoose";
-import type { IBaseEntity } from "./base.entity.js";
+import type { IBaseEntity } from "./base.entity";
 
 export interface IBlogEntity extends IBaseEntity {
   userId: string; // Author's user ID

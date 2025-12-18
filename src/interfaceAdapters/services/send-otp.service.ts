@@ -1,5 +1,5 @@
-import type { ISendOtpService } from "../../entities/services/send-otp.service.interface.js";
-import { sendMail } from "../../frameworks/email/sendEmail.js";
+import type { ISendOtpService } from "../../entities/services/send-otp.service.interface";
+import { sendMail } from "../../frameworks/email/sendEmail";
 
 export class SendOtpService implements ISendOtpService {
     constructor () {}

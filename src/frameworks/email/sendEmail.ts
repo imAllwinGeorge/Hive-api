@@ -1,4 +1,4 @@
-import transporter from "./nodemailerClient.js"
+import transporter from "./nodemailerClient"
 
 export const sendMail = async (
     email: string,

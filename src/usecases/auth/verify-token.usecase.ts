@@ -1,11 +1,11 @@
-import type { IUserMapper } from "../../entities/mapperInterfaces/user-mapper.interface.js";
-import type { IUserRepository } from "../../entities/repositoryInterfaces/user-repository.interface.js";
-import type { IJwtServices } from "../../entities/services/jwt-services.interface.js";
-import type { IVerifyTokenUsecase } from "../../entities/usecaseInterfaces/auth/verify-token.usecase.interface.js";
-import type { IUserModel } from "../../frameworks/database/mongo/models/user.model.js";
-import { HttpStatusCode } from "../../shared/constants/constants.js";
-import { AppError } from "../../shared/errors/appError.js";
-import type { UserResponseDTO } from "../../shared/types/responseDTO.js";
+import type { IUserMapper } from "../../entities/mapperInterfaces/user-mapper.interface";
+import type { IUserRepository } from "../../entities/repositoryInterfaces/user-repository.interface";
+import type { IJwtServices } from "../../entities/services/jwt-services.interface";
+import type { IVerifyTokenUsecase } from "../../entities/usecaseInterfaces/auth/verify-token.usecase.interface";
+import type { IUserModel } from "../../frameworks/database/mongo/models/user.model";
+import { HttpStatusCode } from "../../shared/constants/constants";
+import { AppError } from "../../shared/errors/appError";
+import type { UserResponseDTO } from "../../shared/types/responseDTO";
 
 export class VerifyTokenUsecase implements IVerifyTokenUsecase {
     constructor (

@@ -1,4 +1,4 @@
-import type { IBcrypt } from "../../entities/security/bcrypt.interface.js";
+import type { IBcrypt } from "../../entities/security/bcrypt.interface";
 import bcrypt from "bcrypt";
 
 export class PasswordBcrypt implements IBcrypt {
