@@ -15,6 +15,8 @@ const app = express();
 const authRoutes = new AuthRoutes();
 const blogRoute = new BlogRoute();
 
+app.set("trust proxy", 1);
+
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 app.use(cookieParser());
