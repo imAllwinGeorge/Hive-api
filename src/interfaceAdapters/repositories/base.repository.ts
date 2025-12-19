@@ -52,4 +52,9 @@ export class BaseRepository<T> implements IBaseRepository<T> {
   async findByIdAndUpdate(id: string, value: Partial<T>): Promise<T | null> {
     return this.model.findByIdAndUpdate(id, { $set: value }, { new: true });
   }
+
+  async delete(id: string): Promise<void> {
+    const query = this.model.findByIdAndDelete(id);
+    await query.lean();
+  }
 }

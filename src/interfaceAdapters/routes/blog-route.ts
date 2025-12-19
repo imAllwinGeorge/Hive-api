@@ -26,5 +26,9 @@ export class BlogRoute extends BaseRoute {
         this.router.get("/home", (req: Request, res: Response, next: NextFunction) => {
             blogController.getHomeData(req, res, next);
         })
+
+        this.router.patch("/delete-blog/:blogId", verifyToken, (req: Request, res: Response, next: NextFunction) => {
+            blogController.delete(req, res, next);
+        })
     }
 }
