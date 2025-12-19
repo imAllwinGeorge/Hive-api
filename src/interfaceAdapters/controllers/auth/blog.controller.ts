@@ -5,8 +5,12 @@ import type { BlogSection } from "../../../entities/models/blog.entity";
 import type { ICreateBlogUsecase } from "../../../entities/usecaseInterfaces/blog/create_blog.usecase.interface";
 import type { IGetBlogUsecase } from "../../../entities/usecaseInterfaces/blog/get_blog.usecase.interface";
 import type { IEditBlogUsecase } from "../../../entities/usecaseInterfaces/blog/edit_blog.usecase.interface";
-import { calculateTotalPages, getPaginationParams } from "../../../shared/utils/pagination.helpers";
+import {
+  calculateTotalPages,
+  getPaginationParams,
+} from "../../../shared/utils/pagination.helpers";
 import type { IGetHomeDataUsecase } from "../../../entities/usecaseInterfaces/blog/get_home-data.usecase.interface";
+import type { IDeleteBlogUsecase } from "../../../entities/usecaseInterfaces/blog/delete_blog.usecase.interface";
 
 export class BlogController implements IBlogController {
   constructor(
@@ -17,6 +21,8 @@ export class BlogController implements IBlogController {
     private _editBlogUsecase: IEditBlogUsecase,
 
     private _getHomeDataUsecase: IGetHomeDataUsecase,
+
+    private _deleteBlogUsecase: IDeleteBlogUsecase,
   ) {}
 
   async createBlog(
@@ -94,9 +100,9 @@ export class BlogController implements IBlogController {
   ): Promise<void> {
     try {
       const { blogId } = req.params;
-      console.log(blogId)
+      console.log(blogId);
       const blog = await this._getBlogUsecase.execute(blogId as string);
-      console.log(blog)
+      console.log(blog);
       res.status(HttpStatusCode.OK).json({ blog });
     } catch (error) {
       next(error);
@@ -163,30 +169,49 @@ export class BlogController implements IBlogController {
     }
   }
 
-  async getHomeData(req: Request, res: Response, next: NextFunction): Promise<void> {
-  try {
-    const { search } = req.query
-    const { limit, skip } = getPaginationParams(req)
+  async getHomeData(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> {
+    try {
+      const { search } = req.query;
+      const { limit, skip } = getPaginationParams(req);
 
-    const filter: Record<string, unknown> = {
-      isBlocked: false,
-    }
+      const filter: Record<string, unknown> = {
+        isBlocked: false,
+      };
 
-    if (typeof search === "string" && search.trim()) {
-      filter.title = {
-        $regex: search.trim(),
-        $options: "i", // case-insensitive
+      if (typeof search === "string" && search.trim()) {
+        filter.title = {
+          $regex: search.trim(),
+          $options: "i", // case-insensitive
+        };
       }
+
+      const result = await this._getHomeDataUsecase.execute(
+        limit,
+        skip,
+        filter
+      );
+
+      result.total = calculateTotalPages(result.total, limit);
+
+      res.status(HttpStatusCode.OK).json(result);
+    } catch (error) {
+      next(error);
     }
-
-    const result = await this._getHomeDataUsecase.execute(limit, skip, filter)
-
-    result.total = calculateTotalPages(result.total, limit);
-
-    res.status(HttpStatusCode.OK).json(result)
-  } catch (error) {
-    next(error)
   }
-}
 
+  async delete(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const { blogId } = req.params;
+      console.log(blogId, "blog delete controller")
+      await this._deleteBlogUsecase.execute(blogId as string);
+
+      res.status(HttpStatusCode.OK).json({message: "Blog deleted successfully"})
+    } catch (error) {
+      next(error)
+    }
+  }
 }

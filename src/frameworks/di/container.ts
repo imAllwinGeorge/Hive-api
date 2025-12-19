@@ -17,6 +17,7 @@ import { SendOtpUsecase } from "../../usecases/auth/send-otp.usecase";
 import { VerifyOtpUsecase } from "../../usecases/auth/verify-otp.usecase";
 import { VerifyTokenUsecase } from "../../usecases/auth/verify-token.usecase";
 import { CreateBlogUsecase } from "../../usecases/blog/create_blog.usecase";
+import { DeleteBlogUsecase } from "../../usecases/blog/delete_blog.usecase";
 import { EditBlogUsecase } from "../../usecases/blog/edit_blog.usecase";
 import { GetBlogUsecase } from "../../usecases/blog/get_blog.usecase";
 import { GetHomeDataUsecase } from "../../usecases/blog/get_home-data.usecase";
@@ -86,6 +87,8 @@ export const verifyTokenUsecase = new VerifyTokenUsecase(
 
 const refreshTokenUsecase = new RefreshTokenUsecase(jwtServices);
 
+const deleteBlogUsecase = new DeleteBlogUsecase(blogRepository);
+
 //-----------Controllers---------------
 export const authController = new AuthController(
   registerUsecase,
@@ -101,5 +104,6 @@ export const blogController = new BlogController(
   createBlogUsecase,
   getBlogUsecase,
   editBlogUsecase,
-  getHomeDataUsecase
+  getHomeDataUsecase,
+  deleteBlogUsecase
 );
