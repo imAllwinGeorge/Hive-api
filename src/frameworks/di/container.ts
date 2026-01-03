@@ -1,5 +1,6 @@
 import { AuthController } from "../../interfaceAdapters/controllers/auth/auth.controller";
 import { BlogController } from "../../interfaceAdapters/controllers/auth/blog.controller";
+import { UserController } from "../../interfaceAdapters/controllers/user.controller";
 import { BlogMapper } from "../../interfaceAdapters/mappers/blog-mapper";
 import { UserMapper } from "../../interfaceAdapters/mappers/user-mapper";
 import { BlogRepository } from "../../interfaceAdapters/repositories/blog.repository";
@@ -21,6 +22,7 @@ import { DeleteBlogUsecase } from "../../usecases/blog/delete_blog.usecase";
 import { EditBlogUsecase } from "../../usecases/blog/edit_blog.usecase";
 import { GetBlogUsecase } from "../../usecases/blog/get_blog.usecase";
 import { GetHomeDataUsecase } from "../../usecases/blog/get_home-data.usecase";
+import { GetUserBlogsUsecase } from "../../usecases/user/get_user_blog.usecase";
 import { PasswordBcrypt } from "../security/password-bcyrpt";
 
 //----------Mappers-------------
@@ -89,6 +91,8 @@ const refreshTokenUsecase = new RefreshTokenUsecase(jwtServices);
 
 const deleteBlogUsecase = new DeleteBlogUsecase(blogRepository);
 
+const getUserBlogsUsecase = new GetUserBlogsUsecase(jwtServices, blogRepository, blogMapper);
+
 //-----------Controllers---------------
 export const authController = new AuthController(
   registerUsecase,
@@ -107,3 +111,5 @@ export const blogController = new BlogController(
   getHomeDataUsecase,
   deleteBlogUsecase
 );
+
+export const userController = new UserController(getUserBlogsUsecase);
