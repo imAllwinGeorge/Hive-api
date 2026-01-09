@@ -27,5 +27,9 @@ export class AuthRoutes extends BaseRoute {
         this.router.post("/logout", (req: Request, res: Response, next: NextFunction) => {
             authController.logout(req, res, next);
         })
+
+        this.router.post("/refresh-token", (req: Request, res: Response, next: NextFunction) => {
+            authController.refreshToken(req, res, next);
+        })
     }
 }
